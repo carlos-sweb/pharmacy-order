@@ -1,0 +1,58 @@
+.notselect{
+	-webkit-touch-callout: none; /* iOS Safari */
+	-webkit-user-select: none; /* Safari */
+	-khtml-user-select: none; /* Konqueror HTML */
+	-moz-user-select: none; /* Old versions of Firefox */
+	-ms-user-select: none; /* Internet Explorer/Edge */
+	    user-select: none; /* Non-prefixed version, currently
+	                          supported by Chrome, Edge, Opera and Firefox */
+}
+.wrapper {	
+	background-color:#d4d4d4; 
+	display: grid;
+	padding:6px;
+	grid-template-columns: repeat(1, 100%);
+	grid-gap: 6px;
+	grid-auto-rows: minmax(70px, auto);		  
+}
+.row {		
+	display:grid;
+	grid-template-columns:repeat(4,1fr);
+	grid-gap: 6px;
+}
+.item{
+	background-color:#fff;
+	border-radius: 6px;
+	text-align:center;
+	line-height: 80px;
+	position: relative;
+	overflow: hidden;
+	transition: background 400ms;	
+}
+.box-success{
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	align-items: center;
+}
+.text-number{
+	font-size:32px;
+	font-family: 'Share Tech Mono', monospace;
+	display: inline-block;
+	vertical-align: middle;
+}
+
+span.ripple {
+  position: absolute;
+  border-radius: 50%;
+  transform: scale(0);
+  animation: ripple 300ms linear;
+  background-color: rgba(130,130,130, 0.7);
+}
+
+@keyframes ripple {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
