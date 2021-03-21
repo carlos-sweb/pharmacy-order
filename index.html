@@ -1,0 +1,449 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w==" crossorigin="anonymous" />
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  />      
+    <!--<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">-->
+    <title>Farmacia</title>
+    <style>
+
+    	/* Rules for sizing the icon. */
+.material-icons.md-18 { font-size: 18px; }
+.material-icons.md-24 { font-size: 24px; }
+.material-icons.md-36 { font-size: 36px; }
+.material-icons.md-48 { font-size: 48px; }
+
+/* Rules for using icons as black on a light background. */
+.material-icons.md-dark { color: rgba(0, 0, 0, 0.54); }
+.material-icons.md-dark.md-inactive { color: rgba(0, 0, 0, 0.26); }
+
+/* Rules for using icons as white on a dark background. */
+.material-icons.md-light { color: rgba(255, 255, 255, 1); }
+.material-icons.md-light.md-inactive { color: rgba(255, 255, 255, 0.3); }
+
+    body, html {
+  height: 100%;
+}
+
+    .elevation{
+    -webkit-box-shadow: 0 2px 1px -1px rgb(0 0 0 / 20%), 0 1px 1px 0 rgb(0 0 0 / 14%), 0 1px 3px 0 rgb(0 0 0 / 12%);
+    box-shadow: 0 2px 1px -1px rgb(0 0 0 / 20%), 0 1px 1px 0 rgb(0 0 0 / 14%), 0 1px 3px 0 rgb(0 0 0 / 12%);
+	}    
+    
+    body{
+    	background-color:#eee; 
+    }	
+
+
+	.wrapper-section{
+	  height:100%;		
+	  display: grid;	  
+	  grid-template-columns: repeat(1, 100%);
+	  grid-template-rows:auto 350px;
+	  grid-gap: 6px;
+	  grid-auto-rows: minmax(70px, auto);
+
+	}
+
+	.content-keyboard{				
+		display:grid;
+		height:100%;
+		font-family: 'Share Tech Mono', monospace;
+		grid-template:
+			"pharma-product" 1fr
+			"pharma-counter" 1fr
+			"pharma-info" 80px
+		;
+	}
+
+	.pharma-product{
+		grid-area:"pharma-product";
+	}
+
+	.pharma-product >.title{
+		font-size:28px;
+		text-align:center;
+		padding-top:40px;
+		padding-left: 20px;
+		padding-right: 20px;		
+	}
+
+	.pharma-counter{
+		grid-area: "pharma-counter";		
+	}
+
+	.pharma-counter{
+		text-align:center;
+	}
+	#textshow{
+		font-size:50px;
+		text-align:center;
+	}
+
+	.pharma-info{
+		grid-area: "pharma-info";
+		display:flex;
+		flex-direction:row;
+		
+		align-items: stretch;
+		align-content:flex-end;
+		justify-content:flex-end;
+		font-size:24px;
+		background:#E0E0E0;
+
+
+	}
+
+	.pharma-info >div{
+		text-align:center;	
+	}
+
+
+	.notselect{
+
+		-webkit-touch-callout: none; /* iOS Safari */
+	-webkit-user-select: none; /* Safari */
+	-khtml-user-select: none; /* Konqueror HTML */
+	-moz-user-select: none; /* Old versions of Firefox */
+	-ms-user-select: none; /* Internet Explorer/Edge */
+	    user-select: none; /* Non-prefixed version, currently
+	                          supported by Chrome, Edge, Opera and Firefox */
+
+
+	}
+
+
+	.wrapper {
+	
+	  background-color:#d4d4d4; 
+	  display: grid;
+	  padding:6px;
+	  grid-template-columns: repeat(1, 100%);
+	  grid-gap: 6px;
+	  grid-auto-rows: minmax(70px, auto);
+	  
+	}
+
+	.row {		
+	
+		display:grid;
+		grid-template-columns:repeat(4,1fr);
+		grid-gap: 6px;
+
+	}
+
+	.item{
+		background-color:#fff;
+		border-radius: 6px;
+		text-align:center;
+		line-height: 80px;
+
+		position: relative;
+		overflow: hidden;
+		transition: background 400ms;
+		
+	}
+
+	.box-success{
+		display: flex;
+		justify-content: center;
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.text-number{
+		font-size:32px;
+		font-family: 'Share Tech Mono', monospace;
+		display: inline-block;
+		vertical-align: middle;
+	}
+
+
+
+#textshowtotal{
+	font-size:25px;
+}
+#textshowunit{
+	font-size:20px;
+}
+  
+
+
+
+span.ripple {
+  position: absolute;
+  border-radius: 50%;
+  transform: scale(0);
+  animation: ripple 600ms linear;
+  background-color: rgba(130,130,130, 0.7);
+}
+
+@keyframes ripple {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+
+
+
+.blackscreen{
+	display:none;
+	position:absolute;
+	width:100%;
+	height:100%;
+	z-index:100;
+	background-color:rgba(0,0,0,0.5);
+	top:0;
+	left:0;	
+}
+
+
+    </style>	
+  </head>
+  <body>
+
+<div class="wrapper-section">
+	
+	<!--content-->
+	<div class="content-keyboard"  >
+		
+
+
+		<div class="pharma-product" >
+			<div style="padding-left:5px;padding-top:5px;" >
+				<span onclick="openMenu()"  class="material-icons md-36" >menu</span>
+			</div>		
+			<div id="name" class="title">Acido Mefenamico</div>		
+		</div>
+		
+		<div class="pharma-counter">
+			<div id="textshow"></div>
+			<div >
+				<span>$</span><span id="textshowtotal"></span><span>(</span><span id="textshowunit"></span><span>)</span>
+			</div>
+
+		</div>
+
+		<div class="pharma-info" >
+			
+
+
+			<div>
+				<div>Total:</div>
+				<div>$ <span>0</span></div>
+			</div>
+
+
+
+		</div>
+
+	</div>
+	<!--content-->
+
+
+<div class="wrapper notselect">
+  <div class="row">
+  	<div class="item elevation" number-value="1"><span class="text-number" >1</span></div>
+  	<div class="item elevation" number-value="2"><span class="text-number" >2</span></div>
+  	<div class="item elevation" number-value="3"><span class="text-number" >3</span></div>
+  	
+  	<div class="item elevation box-success" backspace >
+  		<span  class="material-icons md-36">backspace</span>
+  	</div>
+
+  </div>
+  <div class="row">
+  	<div class="item elevation" number-value="4"><span class="text-number" >4</span></div>
+  	<div class="item elevation" number-value="5"><span class="text-number" >5</span></div>
+  	<div class="item elevation" number-value="6"><span class="text-number" >6</span></div>
+  	 	<div class="item elevation box-success" >
+  		<span  class="material-icons md-36" onclick="showlist()">list</span>
+  	</div>
+  </div>
+    <div class="row">
+  	<div class="item elevation" number-value="7"><span class="text-number" >7</span></div>
+  	<div class="item elevation" number-value="8"><span class="text-number" >8</span></div>
+  	<div class="item elevation" number-value="9" ><span class="text-number" >9</span></div>
+  	<div class="item elevation box-success" >
+  		<img src="whatsapp-logo.svg" draggable="false" ondragstart="return false;"  >
+  	</div>
+  </div>
+    <div class="row">
+
+  	<div class="item elevation box-success" >
+  		<span  class="material-icons md-36" onclick="before()">navigate_before</span>
+  	</div>
+  	
+  	<div class="item elevation" number-value="0"><span class="text-number"  >0</span></div>
+  	<div class="item elevation box-success" >
+  		<span  class="material-icons md-36" onclick="next()">navigate_next</span>
+  	</div>
+  	<div class="item elevation box-success" onclick="done()"  >
+  		<span  class="material-icons md-36">done</span>
+  	</div>
+  </div> 
+</div>
+
+	
+</div>
+
+
+
+<div id="blackscreen" class="blackscreen" onclick="closeMenu()" ></div>
+
+<script type="text/javascript" src="https://unpkg.com/pp-model.js@1.0.7/pp-model.min.js" ></script>
+<script type="text/javascript" src="items.js" ></script>
+<script type="text/javascript">
+
+
+
+// Esperate un poquitico
+var Items = [];
+
+var model = new ppModel({
+	defaults:{
+		count:0
+	}
+});
+
+for( var i = 0 ; i < items.length ; i++ ){
+
+	Items.push( new model(items[i]) );
+}
+
+
+//console.log( Items );
+
+
+
+
+function showlist(){
+	alert("Mostrar Lista")
+}
+
+function showwsp(){
+	alert("Abrir Wassap");
+}
+
+
+
+function openMenu(){
+	document.getElementById("blackscreen").style.display = "block";
+}
+
+function closeMenu(){
+	document.getElementById("blackscreen").style.display = "none";
+}
+
+
+
+
+var indice = 0;
+
+
+
+function draw( _indice ){
+
+	console.log( _indice );
+
+	document.getElementById("name").innerText = items[indice][0];
+	document.getElementById("textshow").innerText = items[indice][2] === undefined ? "0":items[indice][2];
+	document.getElementById("textshowunit").innerText = items[indice][1];	
+	document.getElementById("textshowtotal").innerText = "0";	
+
+}
+
+
+function before(){
+		// Aqui Estamos trabajando
+		console.log( indice );
+		console.log( items.length );
+		if( indice == 0 ){ indice=items.length; }else{ indice--; }
+		console.log( indice );
+		draw( indice )
+}
+
+function next(){
+	draw(null);
+	if( indice < (items.length-1) ){ indice++; }else{ indice=0; }
+
+}
+
+function done(){
+	draw(null)
+	if( indice < (items.length-1) ){ indice++; }else{ indice=0; }
+}
+
+
+done();
+
+
+
+
+function createRipple(event) {
+	  const button = event.currentTarget;
+	  const circle = document.createElement("span");
+	  const diameter = Math.max(button.clientWidth, button.clientHeight);
+	  const radius = diameter / 2;
+	  circle.style.width = circle.style.height = `${diameter}px`;
+	  circle.style.left = `${event.clientX - button.offsetLeft - radius}px`;
+	  circle.style.top = `${event.clientY - button.offsetTop - radius}px`;
+	  circle.classList.add("ripple");
+	  const ripple = button.getElementsByClassName("ripple")[0];
+
+	  if (ripple) {
+	    ripple.remove();
+	  }
+
+	  button.appendChild(circle);
+}
+
+	const buttons = document.getElementsByClassName("item"); //document.getElementsByTagName("button");
+
+	for (const button of buttons) {
+	  button.addEventListener("click", function(event){
+	  	createRipple(event);
+
+	  	const number = event.currentTarget.getAttribute("number-value")
+	  	const numberPrevius = document.getElementById("textshow").innerText;
+
+	  	
+	  	// ----------------------------------------------------------------
+	  	if(number != null){
+
+	  		const numadd = parseInt(  (numberPrevius == "0" ? "" : numberPrevius ) + number );	  		
+		document.getElementById("textshowtotal").innerText =  items[(indice-1)][1] * numadd;	
+	  		
+	  		
+	  		document.getElementById("textshow").innerText = numadd;
+	  	}
+	  	// ----------------------------------------------------------------	  	
+	  	if( event.currentTarget.hasAttribute("backspace") ){
+
+	  		const numadd = parseInt(  numberPrevius.slice(0, -1) == "" ? "0":  numberPrevius.slice(0, -1) );	  		
+		document.getElementById("textshowtotal").innerText =  items[(indice-1)][1] * numadd;
+		
+	  		    
+	  		document.getElementById("textshow").innerText = numberPrevius.slice(0, -1) == "" ? "0":  numberPrevius.slice(0, -1);
+	  	}
+	  	
+
+	  });	  
+	}
+</script>
+
+
+</body>
+</html>
