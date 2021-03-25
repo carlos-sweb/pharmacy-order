@@ -453,7 +453,8 @@ function done(){
 	  		
 	  		document.getElementById("textshow").innerText = numadd;
 
-	  		
+	  	// Save in Items
+	  	Items[indice].set("count",numadd);	
 	  	}
 	  	// ----------------------------------------------------------------	  	
 	  	if( event.currentTarget.hasAttribute("backspace") ){
@@ -463,10 +464,11 @@ function done(){
 		document.getElementById("textshow").innerText = numberPrevius.slice(0, -1) == "" ? "0":  numberPrevius.slice(0, -1);
 		//----------------------------------------------------------------------------------------------------
 
-
-	  	}
-	  	// Save in Items
+		// Save in Items
 	  	Items[indice].set("count",numadd);
+	  	
+	  	}
+
 	  	
 
 	  });	  
