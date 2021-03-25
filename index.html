@@ -140,7 +140,7 @@
 			<div style="padding-left:5px;padding-top:5px;" >
 				<span onclick="openMenu()"  class="material-icons md-36" >menu</span>
 			</div>		
-			<div id="name" class="title">Acido Mefenamico</div>		
+			<div id="name" class="title"></div>		
 		</div>
 		
 		<div class="pharma-counter">
@@ -304,17 +304,34 @@
 
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
+
 <script type="text/javascript" src="numeric-keyboard.js" ></script>
+<script src="https://cdn.jsdelivr.net/npm/pp-events@1.0.3/pp-events.min.js" ></script>
 <script type="text/javascript" src="https://unpkg.com/pp-model.js@1.0.7/pp-model.min.js" ></script>
+
 <script type="text/javascript" src="items.js" ></script>
 <script type="text/javascript">
 
+var indice = 0;
 
+var Ev = new ppEvents();
+
+var  nameText = document.getElementById("name");
+
+var  textshow = document.getElementById("textshow");
+
+var textshowunit = document.getElementById("textshowunit");
+
+
+Ev.on("itemlist",function(event){
+	var itemId = parseInt( event.currentTarget.getAttribute("data-id") );	
+	draw(itemId);
+	hiddenlist();
+});
 
 var modalList = document.getElementById("modal-list");
 
 
-// Esperate un poquitico
 var Items = [];
 
 var model = new ppModel({
@@ -324,7 +341,6 @@ var model = new ppModel({
 });
 
 for( var i = 0 ; i < items.length ; i++ ){
-
 	Items.push( new model(items[i]) );
 }
 
@@ -332,9 +348,9 @@ for( var i = 0 ; i < items.length ; i++ ){
 function getLIstItems(){
 	var vtr = "<ul>";
 	for(var i = 0; i < items.length;i++){
-		vtr +="<li onclick='itemsList()'>";
+		vtr += "<li data-id=\""+i.toString()+"\" onclick='Ev.emit(\"itemlist\",event)'>";
 		vtr += "<span>"+items[i][0]+"</span>"; 
-		vtr +="</li>";
+		vtr += "</li>";
 	}
 	vtr +="</ul>";
 	return  vtr;
@@ -369,8 +385,6 @@ function showwsp(){
 	alert("Abrir Wassap");
 }
 
-
-
 function openMenu(){
 	document.getElementById("blackscreen").style.display = "block";
 }
@@ -382,44 +396,37 @@ function closeMenu(){
 
 
 
-var indice = 0;
+
 
 
 
 function draw( _indice ){
-
-	console.log( _indice );
-
-	document.getElementById("name").innerText = items[indice][0];
-	document.getElementById("textshow").innerText = items[indice][2] === undefined ? "0":items[indice][2];
-	document.getElementById("textshowunit").innerText = items[indice][1];	
-	document.getElementById("textshowtotal").innerText = "0";	
-
+	nameText.innerText = Items[_indice].get(0);
+	textshow.innerText = Items[_indice].get("count").toString();
+	textshowunit.innerText = Items[_indice].get(1);
 }
 
 
 function before(){
-		// Aqui Estamos trabajando
-		console.log( indice );
-		console.log( items.length );
-		if( indice == 0 ){ indice=items.length; }else{ indice--; }
-		console.log( indice );
-		draw( indice )
+	indice--;		
+	draw( indice )
 }
 
-function next(){
-	draw(null);
-	if( indice < (items.length-1) ){ indice++; }else{ indice=0; }
-
+function next(){	
+	indice++;
+	draw(indice);
 }
+
+draw(indice);
 
 function done(){
-	draw(null)
-	if( indice < (items.length-1) ){ indice++; }else{ indice=0; }
+	indice++;
+
+	draw(indice);
+
 }
 
 
-done();
 
 
 
@@ -439,16 +446,18 @@ done();
 	  	if(number != null){
 
 	  		const numadd = parseInt(  (numberPrevius == "0" ? "" : numberPrevius ) + number );	  		
-		document.getElementById("textshowtotal").innerText =  numeral(items[(indice-1)][1] * numadd).format("0,0[.]00");
+		document.getElementById("textshowtotal").innerText =  numeral(items[(indice)][1] * numadd).format("0,0[.]00");
 	  		
 	  		
 	  		document.getElementById("textshow").innerText = numadd;
+
+	  		Items[indice].set("count",numadd);
 	  	}
 	  	// ----------------------------------------------------------------	  	
 	  	if( event.currentTarget.hasAttribute("backspace") ){
 	  	//----------------------------------------------------------------------------------------------------
 		const numadd = parseInt(  numberPrevius.slice(0, -1) == "" ? "0":  numberPrevius.slice(0, -1) );
-		document.getElementById("textshowtotal").innerText = numeral(items[(indice-1)][1] * numadd).format(" 0,0[.]00");
+		document.getElementById("textshowtotal").innerText = numeral(items[(indice)][1] * numadd).format(" 0,0[.]00");
 		document.getElementById("textshow").innerText = numberPrevius.slice(0, -1) == "" ? "0":  numberPrevius.slice(0, -1);
 		//----------------------------------------------------------------------------------------------------
 
