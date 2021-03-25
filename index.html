@@ -453,7 +453,7 @@ function done(){
 	  		
 	  		document.getElementById("textshow").innerText = numadd;
 
-	  		Items[indice].set("count",numadd);
+	  		
 	  	}
 	  	// ----------------------------------------------------------------	  	
 	  	if( event.currentTarget.hasAttribute("backspace") ){
@@ -465,6 +465,8 @@ function done(){
 
 
 	  	}
+	  	// Save in Items
+	  	Items[indice].set("count",numadd);
 	  	
 
 	  });	  
