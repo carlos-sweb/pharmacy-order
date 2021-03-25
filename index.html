@@ -15,6 +15,7 @@
   />
 
 
+<link rel="stylesheet" href="modal.css">
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="font-icons.css">
 <link rel="stylesheet" href="elevation.css">
@@ -22,111 +23,8 @@
 
 
 <title>Farmacia</title>
-<style>
 
-
-
-
-	.wrapper-section{
-	  height:100%;		
-	  display: grid;	  
-	  grid-template-columns: repeat(1, 100%);
-	  grid-template-rows:auto 350px;
-	  grid-gap: 6px;
-	  grid-auto-rows: minmax(70px, auto);
-
-	}
-
-	.content-keyboard{				
-		display:grid;
-		height:100%;
-		font-family: 'Share Tech Mono', monospace;
-		grid-template:
-			"pharma-product" 1fr
-			"pharma-counter" 1fr
-			"pharma-info" 80px
-		;
-	}
-
-	.pharma-product{
-		grid-area:"pharma-product";
-	}
-
-	.pharma-product >.title{
-		font-size:26px;
-		text-align:center;
-		padding-top:20px;
-		padding-left: 20px;
-		padding-right: 20px;		
-	}
-
-	.pharma-counter{
-		grid-area: "pharma-counter";		
-	}
-
-	.pharma-counter{
-		text-align:center;
-	}
-	#textshow{
-		font-size:50px;
-		text-align:center;
-	}
-
-	.pharma-info{
-		grid-area: "pharma-info";
-		display:flex;
-		flex-direction:row;
-		
-		align-items: stretch;
-		align-content:flex-end;
-		justify-content:flex-end;
-		font-size:24px;
-		background:#E0E0E0;
-
-
-	}
-
-	.pharma-info >div{
-		text-align:center;	
-	}
-
-
-
-
-
-	
-
-
-
-#textshowtotal{
-	font-size:25px;
-}
-#textshowunit{
-	font-size:20px;
-}
-  
-
-
-
-
-
-
-
-
-.blackscreen{
-	display:none;
-	position:absolute;
-	width:100%;
-	height:100%;
-	z-index:100;
-	background-color:rgba(0,0,0,0.5);
-	top:0;
-	left:0;	
-}
-
-
-    </style>	
-  </head>
+</head>
   <body>
 
 <div class="wrapper-section">
@@ -148,20 +46,13 @@
 			<div >
 				<span>$</span><span id="textshowtotal"></span><span>(</span><span id="textshowunit"></span><span>)</span>
 			</div>
-
 		</div>
 
-		<div class="pharma-info" >
-			
-
-
+		<div class="pharma-info" >			
 			<div>
 				<div>Total:</div>
 				<div>$ <span>0</span></div>
 			</div>
-
-
-
 		</div>
 
 	</div>
@@ -183,8 +74,8 @@
   	<div class="item elevation" number-value="4"><span class="text-number" >4</span></div>
   	<div class="item elevation" number-value="5"><span class="text-number" >5</span></div>
   	<div class="item elevation" number-value="6"><span class="text-number" >6</span></div>
-  	 	<div class="item elevation box-success" >
-  		<span  class="material-icons md-36" onclick="showlist()">list</span>
+  	 	<div class="item elevation box-success" onclick="showlist()" >
+  		<span  class="material-icons md-36" >list</span>
   	</div>
   </div>
     <div class="row">
@@ -197,13 +88,13 @@
   </div>
     <div class="row">
 
-  	<div class="item elevation box-success" >
-  		<span  class="material-icons md-36" onclick="before()">navigate_before</span>
+  	<div class="item elevation box-success" onclick="before()" >
+  		<span  class="material-icons md-36" >navigate_before</span>
   	</div>
   	
   	<div class="item elevation" number-value="0"><span class="text-number"  >0</span></div>
-  	<div class="item elevation box-success" >
-  		<span  class="material-icons md-36" onclick="next()">navigate_next</span>
+  	<div class="item elevation box-success" onclick="next()"  >
+  		<span  class="material-icons md-36" >navigate_next</span>
   	</div>
   	<div class="item elevation box-success" onclick="done()"  >
   		<span  class="material-icons md-36">done</span>
@@ -218,78 +109,7 @@
 
 <div id="blackscreen" class="blackscreen" onclick="closeMenu()" ></div>
 
-
-<style>
-	
-	.modal-wrapper{
-		visibility:hidden;
-		display:none;
-
-		position:absolute;
-		top:0;
-		left:0;
-		width:100%;
-		height:100%;
-		z-index:12;
-		background-color:rgba(255,255,255);
-		display:flex;
-		flex-direction:column;
-		justify-content:center;
-		overflow:auto;
-		font-family: 'Share Tech Mono', monospace;
-	}
-	.modal{
-		display:grid;
-		width:100%;
-		height:100%;
-		grid-template:
-			"modalHeader" 0px
-			"modalContent" auto
-			"modalFooter" 70px
-		;
-	}
-
-	.modal-header{
-		grid-area:"modalHeader";
-	}
-	.modal-content{
-		grid-area:"modalContent";
-		overflow:auto;
-	}
-
-	.modal-wrapper ul{
-		list-style:none;
-		margin:0px;
-		padding:0px;
-	}
-
-	.modal-wrapper ul li{		
-		padding-top:12px;
-		padding-bottom:12px;		
-		font-size:22px;
-		display:block;
-		float:left;
-		width:100%;
-		border-bottom:solid 1px silver;
-	}
-	.modal-wrapper ul li span{
-		margin-left:12px;
-	}
-
-	.modal-footer{
-
-		grid-area:"modalFooter";
-		background-color:#EAEAEA;
-		width:100%;
-		border-top:solid 1px silver;
-	}
-
-
-
-
-</style>
-
-
+<!--MODAL de lista de medicamentos-->
 <div id="modal-list" class="modal-wrapper">
 	
 	<div class="modal">
@@ -301,26 +121,95 @@
 	</div>
 
 </div>
-
-
+<!--MODAL de lista de medicamentos-->
 <script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
-
 <script type="text/javascript" src="numeric-keyboard.js" ></script>
 <script src="https://cdn.jsdelivr.net/npm/pp-events@1.0.3/pp-events.min.js" ></script>
-<script type="text/javascript" src="https://unpkg.com/pp-model.js@1.0.7/pp-model.min.js" ></script>
-
+<script src="https://unpkg.com/pp-collection@1.0.0/pp-collection.min.js" ></script>
+<script src="https://unpkg.com/pp-model.js@1.0.7/pp-model.min.js" ></script>
 <script type="text/javascript" src="items.js" ></script>
-<script type="text/javascript">
 
-var indice = 0;
+<script type="text/javascript">
+// DataBase 
+
+// En la siguiente línea, puede incluir prefijos de implementación que quiera probar.
+window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
+// No use "var indexedDB = ..." Si no está en una función.
+// Por otra parte, puedes necesitar referencias a algun objeto window.IDB*:
+window.IDBTransaction = window.IDBTransaction || window.webkitIDBTransaction || window.msIDBTransaction;
+window.IDBKeyRange = window.IDBKeyRange || window.webkitIDBKeyRange || window.msIDBKeyRange;
+// (Mozilla nunca ha prefijado estos objetos, por lo tanto no necesitamos window.mozIDB*)
+
+
+if (!window.indexedDB) {
+    window.alert("Su navegador no soporta una versión estable de indexedDB. Tal y como las características no serán validas");
+}
+
+// --------------------------------------------------------------------------------
+var request = indexedDB.open("pharmacy", 1 );
+// --------------------------------------------------------------------------------
+request.onerror = function(event) {
+
+  	alert("Database error: " + event.target.errorCode);
+
+};
+// --------------------------------------------------------------------------------
+request.onsuccess = function( event ){
+
+	db = request.result;
+
+};
+// --------------------------------------------------------------------------------
+request.onupgradeneeded = function( event ){
+
+  var db = event.target.result;
+  // Crea un almacén de objetos (objectStore) para esta base de datos
+  var pillStore = db.createObjectStore("pills", { keyPath: "ssn" });
+  var shopStore = db.createObjectStore("shop", { keyPath: "ssn" });  	  
+
+  	  pillStore.transaction.oncomplete = function(event) {
+			
+		var pillObject = db.transaction("pills", "readwrite").objectStore("pills");	
+			
+			for( i in items ){
+				pillObject.add({
+					ssn:i,
+					name:items[i][0],
+					price:items[i][1]
+				});
+			}
+
+
+			
+  	  }
+    
+
+
+
+};
+// --------------------------------------------------------------------------------
+
+
+
+
+
+var store = window.localStorage;
+
+var indice = store.getItem("indice") == null ?  0 : parseInt(store.getItem("indice"));
 
 var Ev = new ppEvents();
 
-var  nameText = document.getElementById("name");
+function Fid( id ){
+	return document.getElementById( id );
+}
 
-var  textshow = document.getElementById("textshow");
+var  nameText = Fid("name");
 
-var textshowunit = document.getElementById("textshowunit");
+var  textshow = Fid("textshow");
+
+var textshowunit = Fid("textshowunit");
+
+var textshowtotal  = Fid("textshowtotal");
 
 
 Ev.on("itemlist",function(event){
@@ -342,8 +231,11 @@ var model = new ppModel({
 	}
 });
 
-for( var i = 0 ; i < items.length ; i++ ){
-	Items.push( new model(items[i]) );
+for( var i = 0 ; i < items.length ; i++ ){	
+
+	var tempModel = new model(items[i]);
+
+	Items.push( tempModel  );
 }
 
 
@@ -360,29 +252,6 @@ function getLIstItems(){
 
 
 
-//console.log( Items );
-
-
-
-function itemsList(){
-	modalList.style.display="none";
-	modalList.style.visibility="hidden";	
-}
-
-
-function showlist(){
-
-	modalList.style.display="block";
-	modalList.style.visibility="visible";
-	document.getElementById("modal-content-list").innerHTML = getLIstItems();
-
-}
-
-function hiddenlist(){
-	modalList.style.display="none";
-	modalList.style.visibility="hidden";	
-}
-
 function showwsp(){
 	alert("Abrir Wassap");
 }
@@ -397,41 +266,38 @@ function closeMenu(){
 
 
 
+//console.log( Items );
 
+function showlist(){
 
+	modalList.style.display="block";
+	modalList.style.visibility="visible";
+	document.getElementById("modal-content-list").innerHTML = getLIstItems();
 
+}
 
+function hiddenlist(){
+	modalList.style.display="none";
+	modalList.style.visibility="hidden";	
+}
 
 function draw( _indice ){
+
+
+	store.setItem("indice",_indice);
+			
 	nameText.innerText = Items[_indice].get(0);
 	textshow.innerText = Items[_indice].get("count").toString();
-	textshowunit.innerText = Items[_indice].get(1);
+	textshowunit.innerText = numeral(Items[_indice].get(1)).format("0,0[.]00");
+	textshowtotal.innerText = numeral(Items[_indice].get("count") * Items[_indice].get(1)).format("0,0[.]00");
+
 }
 
 
-function before(){
-	indice--;		
-	draw( indice )
-}
-
-function next(){	
-	indice++;
-	draw(indice);
-}
-
+function before(){indice--;if( indice < 0 ){ indice = (Items.length-1) };draw(indice);}
+function next(){indice++;if( indice >= Items.length ){ indice=0; };draw(indice);}
+function done(){indice++;draw(indice);}
 draw(indice);
-
-function done(){
-	indice++;
-
-	draw(indice);
-
-}
-
-
-
-
-
 
 
 	const buttons = document.getElementsByClassName("item"); //document.getElementsByTagName("button");
@@ -468,13 +334,9 @@ function done(){
 	  	Items[indice].set("count",numadd);
 	  	
 	  	}
-
-	  	
-
+	  
 	  });	  
 	}
 </script>
-
-
 </body>
 </html>

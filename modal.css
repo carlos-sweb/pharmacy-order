@@ -1,0 +1,62 @@
+.modal-wrapper{
+		visibility:hidden;
+		display:none;
+
+		position:absolute;
+		top:0;
+		left:0;
+		width:100%;
+		height:100%;
+		z-index:12;
+		background-color:rgba(255,255,255);
+		display:flex;
+		flex-direction:column;
+		justify-content:center;
+		overflow:auto;
+		font-family: 'Share Tech Mono', monospace;
+	}
+	.modal{
+		display:grid;
+		width:100%;
+		height:100%;
+		grid-template:
+			"modalHeader" 0px
+			"modalContent" auto
+			"modalFooter" 70px
+		;
+	}
+
+	.modal-header{
+		grid-area:"modalHeader";
+	}
+	.modal-content{
+		grid-area:"modalContent";
+		overflow:auto;
+	}
+
+	.modal-wrapper ul{
+		list-style:none;
+		margin:0px;
+		padding:0px;
+	}
+
+	.modal-wrapper ul li{		
+		padding-top:12px;
+		padding-bottom:12px;		
+		font-size:22px;
+		display:block;
+		float:left;
+		width:100%;
+		border-bottom:solid 1px silver;
+	}
+	.modal-wrapper ul li span{
+		margin-left:12px;
+	}
+
+	.modal-footer{
+
+		grid-area:"modalFooter";
+		background-color:#EAEAEA;
+		width:100%;
+		border-top:solid 1px silver;
+	}

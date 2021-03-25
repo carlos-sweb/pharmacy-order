@@ -469,7 +469,7 @@ const items = [
   ],
   [
     "VITAMINA C",
-    61.4
+    61
   ],
   [
     "VITAMINA E",
