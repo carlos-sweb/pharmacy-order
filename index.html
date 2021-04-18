@@ -123,8 +123,9 @@
 
 </div>
 <!--MODAL de lista de medicamentos-->
-<script src="node_modules/pp-router.js/pp-router.min.js" ></script>
+
 <script src="https://unpkg.com/voca@1.4.0/index.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/pp-router.js@1.0.7/pp-router.min.js" ></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
 <script type="text/javascript" src="numeric-keyboard.js" ></script>
 <script src="https://cdn.jsdelivr.net/npm/pp-events@1.0.3/pp-events.min.js" ></script>
@@ -134,6 +135,10 @@
 
 
 <script type="text/javascript">
+
+	var store = window.localStorage;
+
+	var indice = store.getItem("indice") == null ?  0 : parseInt(store.getItem("indice"));
 
 	// necesito hacer una funcion de kebabCase
 	console.log(v.kebabCase("AMOXICILINA (500mg)"));
@@ -146,9 +151,11 @@
             	console.log(params);
         }
     },
-    "/route-remove":{
+    "/":{
         controller:function(){
-            
+      		
+        	console.log( indice );
+
         }
     }	
     }
@@ -244,9 +251,7 @@ _db.open('pharmacy',1,{
 
 
 
-var store = window.localStorage;
 
-var indice = store.getItem("indice") == null ?  0 : parseInt(store.getItem("indice"));
 
 var Ev = new ppEvents();
 
