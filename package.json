@@ -1,0 +1,22 @@
+{
+  "name": "pharmacy-order",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/carlos-sweb/pharmacy-order.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/carlos-sweb/pharmacy-order/issues"
+  },
+  "homepage": "https://github.com/carlos-sweb/pharmacy-order#readme",
+  "dependencies": {
+    "pp-router.js": "^1.0.6"
+  }
+}

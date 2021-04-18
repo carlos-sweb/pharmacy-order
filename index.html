@@ -123,6 +123,8 @@
 
 </div>
 <!--MODAL de lista de medicamentos-->
+<script src="node_modules/pp-router.js/pp-router.min.js" ></script>
+<script src="https://unpkg.com/voca@1.4.0/index.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
 <script type="text/javascript" src="numeric-keyboard.js" ></script>
 <script src="https://cdn.jsdelivr.net/npm/pp-events@1.0.3/pp-events.min.js" ></script>
@@ -130,65 +132,113 @@
 <script src="https://unpkg.com/pp-model.js@1.0.7/pp-model.min.js" ></script>
 <script type="text/javascript" src="items.js" ></script>
 
+
 <script type="text/javascript">
-// DataBase 
 
-// En la siguiente línea, puede incluir prefijos de implementación que quiera probar.
-window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
-// No use "var indexedDB = ..." Si no está en una función.
-// Por otra parte, puedes necesitar referencias a algun objeto window.IDB*:
-window.IDBTransaction = window.IDBTransaction || window.webkitIDBTransaction || window.msIDBTransaction;
-window.IDBKeyRange = window.IDBKeyRange || window.webkitIDBKeyRange || window.msIDBKeyRange;
-// (Mozilla nunca ha prefijado estos objetos, por lo tanto no necesitamos window.mozIDB*)
+	// necesito hacer una funcion de kebabCase
+	console.log(v.kebabCase("AMOXICILINA (500mg)"));
+
+	var router = new ppRouter(
+    // How to use it ?
+    {
+    "/:pharma(string)":{
+        controller:function( params){
+            	console.log(params);
+        }
+    },
+    "/route-remove":{
+        controller:function(){
+            
+        }
+    }	
+    }
+	);	
+
+	
 
 
-if (!window.indexedDB) {
+	router.start();
+
+
+
+	var ppDB = function(){
+	
+	// Normalización
+		
+	// En la siguiente línea, puede incluir prefijos de implementación que quiera probar.
+	window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
+	// No use "var indexedDB = ..." Si no está en una función.
+	// Por otra parte, puedes necesitar referencias a algun objeto window.IDB*:
+	window.IDBTransaction = window.IDBTransaction || window.webkitIDBTransaction || window.msIDBTransaction;
+	window.IDBKeyRange = window.IDBKeyRange || window.webkitIDBKeyRange || window.msIDBKeyRange;
+	// (Mozilla nunca ha prefijado estos objetos, por lo tanto no necesitamos window.mozIDB*)
+	if(!window.indexedDB) {
     window.alert("Su navegador no soporta una versión estable de indexedDB. Tal y como las características no serán validas");
-}
+	}
 
-// --------------------------------------------------------------------------------
-var request = indexedDB.open("pharmacy", 1 );
-// --------------------------------------------------------------------------------
-request.onerror = function(event) {
+	this.db = null;
 
-  	alert("Database error: " + event.target.errorCode);
+	this.DB = window.indexedDB;
 
-};
-// --------------------------------------------------------------------------------
-request.onsuccess = function( event ){
+	/*OPEN DATABASE*/
+	this.open = function( dbname , version , events){		
 
-	db = request.result;
+		var request = this.DB.open(dbname,version);
 
-};
-// --------------------------------------------------------------------------------
-request.onupgradeneeded = function( event ){
-
-  var db = event.target.result;
-  // Crea un almacén de objetos (objectStore) para esta base de datos
-  var pillStore = db.createObjectStore("pills", { keyPath: "ssn" });
-  var shopStore = db.createObjectStore("shop", { keyPath: "ssn" });  	  
-
-  	  pillStore.transaction.oncomplete = function(event) {
-			
-		var pillObject = db.transaction("pills", "readwrite").objectStore("pills");	
-			
-			for( i in items ){
-				pillObject.add({
-					ssn:i,
-					name:items[i][0],
-					price:items[i][1]
-				});
+		if( events.hasOwnProperty("error") ){
+			request.onerror = function(event){
+				events["error"](event);
 			}
+		}
+
+		
+		request.onsuccess = function(event){
+			this.db = request.result;
+			// Emit database initialize
+			if( events.hasOwnProperty("success") ){	
+				events["success"](event);
+			}
+		}
+		
+		request.onupgradeneeded = function(event){
+			if( events.hasOwnProperty("upgradeneeded") ){
+				events["upgradeneeded"](event);
+			}
+		}
+
+	}
+	/*OPEN database*/
 
 
-			
-  	  }
-    
+
+	}
+
+</script>
+
+<script type="text/javascript">
+
+var _db = new ppDB();
+
+_db.open('pharmacy',1,{
+	error:function(event){
+		alert("Database error: " + event.target.errorCode);
+	},
+	success:function(event){
+
+		console.log(event.target);
+
+		console.log("Estamos listos SUCCESS");
+
+	},
+	upgradeneeded:function(){
+
+		console.log("Estamos listos upgradeneeded");
+
+	}
+});
 
 
 
-};
-// --------------------------------------------------------------------------------
 
 
 
