@@ -1,47 +1,88 @@
 <!doctype html>
 <html lang="es">
   <head>
-  	<link rel="icon" type="image/png" href="favicon.png">
+    <link rel="icon" type="image/png" href="favicon.png">
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w==" crossorigin="anonymous" />
-<link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet">
-<link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
-  />
+    <link rel="stylesheet" href="node_modules/normalize.css/normalize.css">
+    <link href="font.css" rel="stylesheet">
+    <link href="icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="node_modules/animate.css/animate.min.css">
+    <link rel="stylesheet" href="modal.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="font-icons.css">
+    <link rel="stylesheet" href="elevation.css">
+    <link rel="stylesheet" href="numeric-keyboard.css">
+    <link rel="stylesheet" href="node_modules/pp-drawer.js/pp-drawer.min.css">
+
+    <style>
+
+    .menu-main{
+      display:grid;
+    }
+
+    .menu-profile{
+      display:grid;
+      width:100%;
+      height:200px;
+      background:silver;
+    }
+
+    .menu-items{
+      display:grid;
+    }
+
+    .menu-item{
+      height:36px;
+      font-size:20px;
+      display:grid;
+      border-bottom:solid 1px black;
+    }
 
 
-<link rel="stylesheet" href="modal.css">
-<link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="font-icons.css">
-<link rel="stylesheet" href="elevation.css">
-<link rel="stylesheet" href="numeric-keyboard.css">
+
+    </style>
 
 
 <title>Farmacia</title>
-
 </head>
   <body>
 
+<div drawer-id="main" class="pp-drawer hidden_drawer drawer-shadow">
+  <div class="menu-main">
+    <div class="menu-profile">
+
+    </div>
+    <div class="menu-items">
+        <div class="menu-item">
+          <a href="#/inventario">Inventario</a>
+        </div>
+        <div class="menu-item">
+          <a href="#/pedido">Pedido</a>
+        </div>
+    </div>
+  </div>
+</div>
+<div drawer-id="main" class="pp-drawer-scrim hidden"></div>
+
+
+
+
 <div class="wrapper-section">
-	
+
 	<!--content-->
 	<div class="content-keyboard"  >
-		
+
 
 
 		<div class="pharma-product" >
 			<div style="padding-left:5px;padding-top:5px;" >
 				<span onclick="openMenu()"  class="material-icons md-36" >menu</span>
-			</div>		
-			<div id="name" class="title"></div>		
+			</div>
+			<div id="name" class="title"></div>
 		</div>
-		
+
 		<div class="pharma-counter">
 			<div id="textshow"></div>
 			<div >
@@ -49,7 +90,7 @@
 			</div>
 		</div>
 
-		<div class="pharma-info" >			
+		<div class="pharma-info" >
 			<div>
 				<div>Total:</div>
 				<div>$ <span>0</span></div>
@@ -65,7 +106,7 @@
   	<div class="item elevation" number-value="1"><span class="text-number" >1</span></div>
   	<div class="item elevation" number-value="2"><span class="text-number" >2</span></div>
   	<div class="item elevation" number-value="3"><span class="text-number" >3</span></div>
-  	
+
   	<div class="item elevation box-success" backspace >
   		<span  class="material-icons md-36">backspace</span>
   	</div>
@@ -92,7 +133,7 @@
   	<div class="item elevation box-success" onclick="before()" >
   		<span  class="material-icons md-36" >navigate_before</span>
   	</div>
-  	
+
   	<div class="item elevation" number-value="0"><span class="text-number"  >0</span></div>
   	<div class="item elevation box-success" onclick="next()"  >
   		<span  class="material-icons md-36" >navigate_next</span>
@@ -100,10 +141,10 @@
   	<div class="item elevation box-success" onclick="done()"  >
   		<span  class="material-icons md-36">done</span>
   	</div>
-  </div> 
+  </div>
 </div>
 
-	
+
 </div>
 
 
@@ -112,7 +153,7 @@
 
 <!--MODAL de lista de medicamentos-->
 <div id="modal-list" class="modal-wrapper">
-	
+
 	<div class="modal">
 		<div class="modal-header"></div>
 		<div id="modal-content-list" class="modal-content"></div>
@@ -123,7 +164,7 @@
 
 </div>
 <!--MODAL de lista de medicamentos-->
-
+<script type="text/javascript" src="node_modules/pp-drawer.js/pp-drawer.min.js" ></script>
 <script src="https://unpkg.com/voca@1.4.0/index.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/pp-router.js@1.0.7/pp-router.min.js" ></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
@@ -135,42 +176,196 @@
 
 
 <script type="text/javascript">
-	
+
+  // no esta funcionando todo
+  
+ // convert resize image
+ // convert acido-mefenamico-500.jpg -resize 200x ../thumb/acido-mefenamico-500.jpg
+  var Ev = new ppEvents();
+  function Fid( id ){return document.getElementById( id );}
+  // Declare drawer
+  var drawer = new ppDrawer("main")
 	var store = window.localStorage;
 	var indice = store.getItem("indice") == null ?  0 : parseInt(store.getItem("indice"));
+  var Items = [];
+
+  function before(){indice--;if( indice < 0 ){ indice = (Items.length-1) };draw(indice,nameText , textshow , textshowunit , textshowtotal);}
+  function next(){indice++;if( indice >= Items.length ){ indice=0; };draw(indice,nameText , textshow , textshowunit , textshowtotal);}
+  function done(){indice++;draw(indice,nameText , textshow , textshowunit , textshowtotal);}
+
+  function getLIstItems(){
+  	var vtr = "<ul>";
+  	for(var i = 0; i < items.length;i++){
+  		vtr += "<li data-id=\""+i.toString()+"\" onclick='Ev.emit(\"itemlist\",event)'>";
+  		vtr += "<span>"+items[i][0]+"</span>";
+  		vtr += "</li>";
+  	}
+  	vtr +="</ul>";
+  	return  vtr;
+  }
+
+
+
+  function showwsp(){
+  	alert("Abrir Wassap");
+  }
+
+  function openMenu(){
+    drawer.open();
+
+  	//document.getElementById("blackscreen").style.display = "block";
+  }
+
+  function closeMenu(){
+  	document.getElementById("blackscreen").style.display = "none";
+  }
+
+
+
+  //console.log( Items );
+
+  function showlist(){
+
+  	modalList.style.display="block";
+  	modalList.style.visibility="visible";
+  	document.getElementById("modal-content-list").innerHTML = getLIstItems();
+
+  }
+
+  function hiddenlist(){
+  	modalList.style.display="none";
+  	modalList.style.visibility="hidden";
+  }
+
+  function draw( _indice , nameText , textshow , textshowunit , textshowtotal ){
+
+  	store.setItem("indice",_indice);
+  	nameText.innerText = Items[_indice].get(0);
+  	textshow.innerText = Items[_indice].get("count").toString();
+  	textshowunit.innerText = numeral(Items[_indice].get(1)).format("0,0[.]00");
+  	textshowtotal.innerText = numeral(Items[_indice].get("count") * Items[_indice].get(1)).format("0,0[.]00");
+
+  }
+
+
+
+
+
 
 	// necesito hacer una funcion de kebabCase
 	console.log(v.kebabCase("AMOXICILINA (500mg)"));
 
+// HOme -----------------------------
+  var homeFunc  = function(){
+
+
+
+    var  nameText = Fid("name");
+    var  textshow      = Fid("textshow");
+    var  textshowunit   = Fid("textshowunit");
+    var  textshowtotal  = Fid("textshowtotal");
+
+
+
+    Ev.on("itemlist",function(event){
+      var itemId = parseInt( event.currentTarget.getAttribute("data-id") );
+      indice = itemId;
+      draw(itemId , nameText , textshow , textshowunit , textshowtotal);
+      hiddenlist();
+    });
+
+    var modalList = Fid("modal-list");//document.getElementById("modal-list");
+
+    var model = new ppModel({
+      defaults:{
+        count:0,
+        total:0
+      }
+    });
+
+    for( var i = 0 ; i < items.length ; i++ ){
+      var tempModel = new model(items[i]);
+      Items.push( tempModel  );
+    }
+
+
+    draw(indice , nameText , textshow , textshowunit , textshowtotal);
+
+
+      const buttons = document.getElementsByClassName("item"); //document.getElementsByTagName("button");
+
+      for (const button of buttons) {
+        button.addEventListener("click", function(event){
+          createRipple(event);
+
+          const number = event.currentTarget.getAttribute("number-value")
+          const numberPrevius = document.getElementById("textshow").innerText;
+
+
+          // ----------------------------------------------------------------
+          if(number != null){
+
+            const numadd = parseInt(  (numberPrevius == "0" ? "" : numberPrevius ) + number );
+        document.getElementById("textshowtotal").innerText =  numeral(items[(indice)][1] * numadd).format("0,0[.]00");
+
+
+            document.getElementById("textshow").innerText = numadd;
+
+          // Save in Items
+          Items[indice].set("count",numadd);
+          }
+          // ----------------------------------------------------------------
+          if( event.currentTarget.hasAttribute("backspace") ){
+          //----------------------------------------------------------------------------------------------------
+        const numadd = parseInt(  numberPrevius.slice(0, -1) == "" ? "0":  numberPrevius.slice(0, -1) );
+        document.getElementById("textshowtotal").innerText = numeral(items[(indice)][1] * numadd).format(" 0,0[.]00");
+        document.getElementById("textshow").innerText = numberPrevius.slice(0, -1) == "" ? "0":  numberPrevius.slice(0, -1);
+        //----------------------------------------------------------------------------------------------------
+
+        // Save in Items
+          Items[indice].set("count",numadd);
+
+          }
+
+        });
+      }
+
+
+
+
+  }
+  // HOme -----------------------------
+
 	var router = new ppRouter(
     // How to use it ?
     {
-    "/:pharma(string)":{
-        controller:function( params){
-            	console.log(params);
-        }
-    },
     "/":{
-        controller:function(){
-      		
-        	console.log( indice );
+        controller:homeFunc
+    },
+    "/pedido":{
+      controller:function(){
 
-        }
-    }	
+        console.log("pedido Work");
+
+      }
+    },
+    "/inventario":{
+      controller:function(){
+
+        console.log("Inventario Work !!!!");
+
+      }
     }
-	);	
-
-	
-
-
+    }
+	);
 	router.start();
 
 
 
 	var ppDB = function(){
-	
+
 	// Normalización
-		
+
 	// En la siguiente línea, puede incluir prefijos de implementación que quiera probar.
 	window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
 	// No use "var indexedDB = ..." Si no está en una función.
@@ -187,7 +382,7 @@
 	this.DB = window.indexedDB;
 
 	/*OPEN DATABASE*/
-	this.open = function( dbname , version , events){		
+	this.open = function( dbname , version , events){
 
 		var request = this.DB.open(dbname,version);
 
@@ -197,15 +392,15 @@
 			}
 		}
 
-		
+
 		request.onsuccess = function(event){
 			this.db = request.result;
 			// Emit database initialize
-			if( events.hasOwnProperty("success") ){	
+			if( events.hasOwnProperty("success") ){
 				events["success"](event);
 			}
 		}
-		
+
 		request.onupgradeneeded = function(event){
 			if( events.hasOwnProperty("upgradeneeded") ){
 				events["upgradeneeded"](event);
@@ -245,153 +440,6 @@ _db.open('pharmacy',1,{
 
 
 
-
-
-
-
-
-
-
-var Ev = new ppEvents();
-
-function Fid( id ){
-	return document.getElementById( id );
-}
-
-var  nameText = Fid("name");
-
-var  textshow = Fid("textshow");
-
-var textshowunit = Fid("textshowunit");
-
-var textshowtotal  = Fid("textshowtotal");
-
-
-Ev.on("itemlist",function(event){
-	var itemId = parseInt( event.currentTarget.getAttribute("data-id") );
-	indice = itemId;
-	draw(itemId);
-	hiddenlist();
-});
-
-var modalList = document.getElementById("modal-list");
-
-
-var Items = [];
-
-var model = new ppModel({
-	defaults:{
-		count:0,
-		total:0
-	}
-});
-
-for( var i = 0 ; i < items.length ; i++ ){	
-
-	var tempModel = new model(items[i]);
-
-	Items.push( tempModel  );
-}
-
-
-function getLIstItems(){
-	var vtr = "<ul>";
-	for(var i = 0; i < items.length;i++){
-		vtr += "<li data-id=\""+i.toString()+"\" onclick='Ev.emit(\"itemlist\",event)'>";
-		vtr += "<span>"+items[i][0]+"</span>"; 
-		vtr += "</li>";
-	}
-	vtr +="</ul>";
-	return  vtr;
-}
-
-
-
-function showwsp(){
-	alert("Abrir Wassap");
-}
-
-function openMenu(){
-	document.getElementById("blackscreen").style.display = "block";
-}
-
-function closeMenu(){
-	document.getElementById("blackscreen").style.display = "none";
-}
-
-
-
-//console.log( Items );
-
-function showlist(){
-
-	modalList.style.display="block";
-	modalList.style.visibility="visible";
-	document.getElementById("modal-content-list").innerHTML = getLIstItems();
-
-}
-
-function hiddenlist(){
-	modalList.style.display="none";
-	modalList.style.visibility="hidden";	
-}
-
-function draw( _indice ){
-
-
-	store.setItem("indice",_indice);
-			
-	nameText.innerText = Items[_indice].get(0);
-	textshow.innerText = Items[_indice].get("count").toString();
-	textshowunit.innerText = numeral(Items[_indice].get(1)).format("0,0[.]00");
-	textshowtotal.innerText = numeral(Items[_indice].get("count") * Items[_indice].get(1)).format("0,0[.]00");
-
-}
-
-
-function before(){indice--;if( indice < 0 ){ indice = (Items.length-1) };draw(indice);}
-function next(){indice++;if( indice >= Items.length ){ indice=0; };draw(indice);}
-function done(){indice++;draw(indice);}
-draw(indice);
-
-
-	const buttons = document.getElementsByClassName("item"); //document.getElementsByTagName("button");
-
-	for (const button of buttons) {
-	  button.addEventListener("click", function(event){
-	  	createRipple(event);
-
-	  	const number = event.currentTarget.getAttribute("number-value")
-	  	const numberPrevius = document.getElementById("textshow").innerText;
-
-	  	
-	  	// ----------------------------------------------------------------
-	  	if(number != null){
-
-	  		const numadd = parseInt(  (numberPrevius == "0" ? "" : numberPrevius ) + number );	  		
-		document.getElementById("textshowtotal").innerText =  numeral(items[(indice)][1] * numadd).format("0,0[.]00");
-	  		
-	  		
-	  		document.getElementById("textshow").innerText = numadd;
-
-	  	// Save in Items
-	  	Items[indice].set("count",numadd);	
-	  	}
-	  	// ----------------------------------------------------------------	  	
-	  	if( event.currentTarget.hasAttribute("backspace") ){
-	  	//----------------------------------------------------------------------------------------------------
-		const numadd = parseInt(  numberPrevius.slice(0, -1) == "" ? "0":  numberPrevius.slice(0, -1) );
-		document.getElementById("textshowtotal").innerText = numeral(items[(indice)][1] * numadd).format(" 0,0[.]00");
-		document.getElementById("textshow").innerText = numberPrevius.slice(0, -1) == "" ? "0":  numberPrevius.slice(0, -1);
-		//----------------------------------------------------------------------------------------------------
-
-		// Save in Items
-	  	Items[indice].set("count",numadd);
-	  	
-	  	}
-	  
-	  });	  
-	}
 </script>
 </body>
 </html>
