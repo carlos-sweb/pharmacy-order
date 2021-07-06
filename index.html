@@ -1,8 +1,7 @@
 <!doctype html>
-<html lang="es">
+<html lang="en">
   <head>
     <link rel="icon" type="image/png" href="favicon.png">
-    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <link rel="stylesheet" href="node_modules/normalize.css/normalize.css">
@@ -15,7 +14,6 @@
     <link rel="stylesheet" href="elevation.css">
     <link rel="stylesheet" href="numeric-keyboard.css">
     <link rel="stylesheet" href="node_modules/pp-drawer.js/pp-drawer.min.css">
-
     <style>
 
     .menu-main{
@@ -47,8 +45,8 @@
 
 <title>Farmacia</title>
 </head>
-  <body>
-
+<body>
+<!--MODAL LEFT SECTION-->
 <div drawer-id="main" class="pp-drawer hidden_drawer drawer-shadow">
   <div class="menu-main">
     <div class="menu-profile">
@@ -65,17 +63,14 @@
   </div>
 </div>
 <div drawer-id="main" class="pp-drawer-scrim hidden"></div>
+<!--MODAL LEFT SECTION-->
 
 
-
-
+<!--MAIN SECTION HTML-->
 <div class="wrapper-section">
 
-	<!--content-->
+  <!--CONTENT-->
 	<div class="content-keyboard"  >
-
-
-
 		<div class="pharma-product" >
 			<div style="padding-left:5px;padding-top:5px;" >
 				<span onclick="openMenu()"  class="material-icons md-36" >menu</span>
@@ -98,9 +93,8 @@
 		</div>
 
 	</div>
-	<!--content-->
-
-
+	<!--CONTENT-->
+<!--KEYBOARD SECTION-->
 <div class="wrapper notselect">
   <div class="row">
   	<div class="item elevation" number-value="1"><span class="text-number" >1</span></div>
@@ -143,27 +137,11 @@
   	</div>
   </div>
 </div>
-
-
-</div>
-
-
-
-<div id="blackscreen" class="blackscreen" onclick="closeMenu()" ></div>
-
-<!--MODAL de lista de medicamentos-->
-<div id="modal-list" class="modal-wrapper">
-
-	<div class="modal">
-		<div class="modal-header"></div>
-		<div id="modal-content-list" class="modal-content"></div>
-		<div class="modal-footer box-success notselect">
-			<span  class="material-icons md-36" onclick="hiddenlist()" >close</span>
-		</div>
-	</div>
+<!--KEYBOARD SECTION-->
 
 </div>
-<!--MODAL de lista de medicamentos-->
+<!--MAIN SECTION HTML-->
+
 <script type="text/javascript" src="node_modules/pp-drawer.js/pp-drawer.min.js" ></script>
 <script src="https://unpkg.com/voca@1.4.0/index.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/pp-router.js@1.0.7/pp-router.min.js" ></script>
@@ -173,273 +151,35 @@
 <script src="https://unpkg.com/pp-collection@1.0.0/pp-collection.min.js" ></script>
 <script src="https://unpkg.com/pp-model.js@1.0.7/pp-model.min.js" ></script>
 <script type="text/javascript" src="items.js" ></script>
-
-
+<!--JAVASCRIPT MAIN RUN-->
 <script type="text/javascript">
 
-  // no esta funcionando todo
-  
- // convert resize image
- // convert acido-mefenamico-500.jpg -resize 200x ../thumb/acido-mefenamico-500.jpg
-  var Ev = new ppEvents();
-  function Fid( id ){return document.getElementById( id );}
-  // Declare drawer
-  var drawer = new ppDrawer("main")
-	var store = window.localStorage;
-	var indice = store.getItem("indice") == null ?  0 : parseInt(store.getItem("indice"));
-  var Items = [];
-
-  function before(){indice--;if( indice < 0 ){ indice = (Items.length-1) };draw(indice,nameText , textshow , textshowunit , textshowtotal);}
-  function next(){indice++;if( indice >= Items.length ){ indice=0; };draw(indice,nameText , textshow , textshowunit , textshowtotal);}
-  function done(){indice++;draw(indice,nameText , textshow , textshowunit , textshowtotal);}
-
-  function getLIstItems(){
-  	var vtr = "<ul>";
-  	for(var i = 0; i < items.length;i++){
-  		vtr += "<li data-id=\""+i.toString()+"\" onclick='Ev.emit(\"itemlist\",event)'>";
-  		vtr += "<span>"+items[i][0]+"</span>";
-  		vtr += "</li>";
-  	}
-  	vtr +="</ul>";
-  	return  vtr;
-  }
-
-
-
-  function showwsp(){
-  	alert("Abrir Wassap");
-  }
-
-  function openMenu(){
-    drawer.open();
-
-  	//document.getElementById("blackscreen").style.display = "block";
-  }
-
-  function closeMenu(){
-  	document.getElementById("blackscreen").style.display = "none";
-  }
-
-
-
-  //console.log( Items );
-
-  function showlist(){
-
-  	modalList.style.display="block";
-  	modalList.style.visibility="visible";
-  	document.getElementById("modal-content-list").innerHTML = getLIstItems();
-
-  }
-
-  function hiddenlist(){
-  	modalList.style.display="none";
-  	modalList.style.visibility="hidden";
-  }
-
-  function draw( _indice , nameText , textshow , textshowunit , textshowtotal ){
-
-  	store.setItem("indice",_indice);
-  	nameText.innerText = Items[_indice].get(0);
-  	textshow.innerText = Items[_indice].get("count").toString();
-  	textshowunit.innerText = numeral(Items[_indice].get(1)).format("0,0[.]00");
-  	textshowtotal.innerText = numeral(Items[_indice].get("count") * Items[_indice].get(1)).format("0,0[.]00");
-
-  }
-
-
-
-
-
-
-	// necesito hacer una funcion de kebabCase
-	console.log(v.kebabCase("AMOXICILINA (500mg)"));
-
-// HOme -----------------------------
-  var homeFunc  = function(){
-
-
-
-    var  nameText = Fid("name");
-    var  textshow      = Fid("textshow");
-    var  textshowunit   = Fid("textshowunit");
-    var  textshowtotal  = Fid("textshowtotal");
-
-
-
-    Ev.on("itemlist",function(event){
-      var itemId = parseInt( event.currentTarget.getAttribute("data-id") );
-      indice = itemId;
-      draw(itemId , nameText , textshow , textshowunit , textshowtotal);
-      hiddenlist();
-    });
-
-    var modalList = Fid("modal-list");//document.getElementById("modal-list");
-
-    var model = new ppModel({
-      defaults:{
-        count:0,
-        total:0
-      }
-    });
-
-    for( var i = 0 ; i < items.length ; i++ ){
-      var tempModel = new model(items[i]);
-      Items.push( tempModel  );
-    }
-
-
-    draw(indice , nameText , textshow , textshowunit , textshowtotal);
-
-
-      const buttons = document.getElementsByClassName("item"); //document.getElementsByTagName("button");
-
-      for (const button of buttons) {
-        button.addEventListener("click", function(event){
-          createRipple(event);
-
-          const number = event.currentTarget.getAttribute("number-value")
-          const numberPrevius = document.getElementById("textshow").innerText;
-
-
-          // ----------------------------------------------------------------
-          if(number != null){
-
-            const numadd = parseInt(  (numberPrevius == "0" ? "" : numberPrevius ) + number );
-        document.getElementById("textshowtotal").innerText =  numeral(items[(indice)][1] * numadd).format("0,0[.]00");
-
-
-            document.getElementById("textshow").innerText = numadd;
-
-          // Save in Items
-          Items[indice].set("count",numadd);
+  	var router = new ppRouter(
+      // How to use it ?
+      {
+      "/":{
+          controller:function(){
+            
           }
-          // ----------------------------------------------------------------
-          if( event.currentTarget.hasAttribute("backspace") ){
-          //----------------------------------------------------------------------------------------------------
-        const numadd = parseInt(  numberPrevius.slice(0, -1) == "" ? "0":  numberPrevius.slice(0, -1) );
-        document.getElementById("textshowtotal").innerText = numeral(items[(indice)][1] * numadd).format(" 0,0[.]00");
-        document.getElementById("textshow").innerText = numberPrevius.slice(0, -1) == "" ? "0":  numberPrevius.slice(0, -1);
-        //----------------------------------------------------------------------------------------------------
+      },
+      "/pedido":{
+        controller:function(){
 
-        // Save in Items
-          Items[indice].set("count",numadd);
+          console.log("pedido Work");
 
-          }
+        }
+      },
+      "/inventario":{
+        controller:function(){
 
-        });
+          console.log("Inventario Work !!!!");
+
+        }
       }
-
-
-
-
-  }
-  // HOme -----------------------------
-
-	var router = new ppRouter(
-    // How to use it ?
-    {
-    "/":{
-        controller:homeFunc
-    },
-    "/pedido":{
-      controller:function(){
-
-        console.log("pedido Work");
-
       }
-    },
-    "/inventario":{
-      controller:function(){
-
-        console.log("Inventario Work !!!!");
-
-      }
-    }
-    }
-	);
-	router.start();
-
-
-
-	var ppDB = function(){
-
-	// Normalización
-
-	// En la siguiente línea, puede incluir prefijos de implementación que quiera probar.
-	window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
-	// No use "var indexedDB = ..." Si no está en una función.
-	// Por otra parte, puedes necesitar referencias a algun objeto window.IDB*:
-	window.IDBTransaction = window.IDBTransaction || window.webkitIDBTransaction || window.msIDBTransaction;
-	window.IDBKeyRange = window.IDBKeyRange || window.webkitIDBKeyRange || window.msIDBKeyRange;
-	// (Mozilla nunca ha prefijado estos objetos, por lo tanto no necesitamos window.mozIDB*)
-	if(!window.indexedDB) {
-    window.alert("Su navegador no soporta una versión estable de indexedDB. Tal y como las características no serán validas");
-	}
-
-	this.db = null;
-
-	this.DB = window.indexedDB;
-
-	/*OPEN DATABASE*/
-	this.open = function( dbname , version , events){
-
-		var request = this.DB.open(dbname,version);
-
-		if( events.hasOwnProperty("error") ){
-			request.onerror = function(event){
-				events["error"](event);
-			}
-		}
-
-
-		request.onsuccess = function(event){
-			this.db = request.result;
-			// Emit database initialize
-			if( events.hasOwnProperty("success") ){
-				events["success"](event);
-			}
-		}
-
-		request.onupgradeneeded = function(event){
-			if( events.hasOwnProperty("upgradeneeded") ){
-				events["upgradeneeded"](event);
-			}
-		}
-
-	}
-	/*OPEN database*/
-
-
-
-	}
-
+  	);
+  	router.start();
 </script>
-
-<script type="text/javascript">
-
-var _db = new ppDB();
-
-_db.open('pharmacy',1,{
-	error:function(event){
-		alert("Database error: " + event.target.errorCode);
-	},
-	success:function(event){
-
-		console.log(event.target);
-
-		console.log("Estamos listos SUCCESS");
-
-	},
-	upgradeneeded:function(){
-
-		console.log("Estamos listos upgradeneeded");
-
-	}
-});
-
-
-
-</script>
+<!--JAVASCRIPT MAIN RUN-->
 </body>
 </html>
