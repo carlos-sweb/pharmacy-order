@@ -15,6 +15,20 @@
     <link rel="stylesheet" href="numeric-keyboard.css">
     <link rel="stylesheet" href="node_modules/pp-drawer.js/pp-drawer.min.css">
 
+    <style >
+      .wrapper-section-stock{
+        display:grid;
+
+      }
+
+      .list-stock{
+        list-style: none;
+        padding:0px;
+        margin:0px;
+      }
+
+    </style>
+
     <style>
 
   .wrapper-section-home {
@@ -29,10 +43,14 @@
     flex-direction:column;
     align-items:center;
     font-family: 'Share Tech Mono', monospace;
+    justify-content: center;
+
   }
 
   .icon-home{
     width:90px;
+    margin-top:3px;
+    margin-bottom:26px;
   }
 
     </style>
@@ -48,7 +66,12 @@
       display:grid;
       width:100%;
       height:200px;
-      background:silver;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      background:#FAFAFA;
+      border-bottom:solid 4px #607D8B;
     }
 
     .menu-items{
@@ -84,7 +107,7 @@
 <div drawer-id="main" class="pp-drawer hidden_drawer drawer-shadow">
   <div class="menu-main">
     <div class="menu-profile">
-
+      <img src="img/pedidos.png" style="width:140px;" alt="">
     </div>
     <div class="menu-items">
         <div class="menu-item">
@@ -118,27 +141,37 @@
 
     var drawer = new ppDrawer("main")
 
+    var stockHtml = function(){
+      var html = '<ul class="list-stock">';
+      for( var i = 0 ; i < items.length ; i++){
+          html+= `<li>${i+1} -   ${items[i][0]}</li>`;
+      }
+      html += '<ul/>';
+      return html;
+    }()
+
+
     var home = `
-
-        <div class="home-box" >
-          <h3>Inventario</h3>
-          <img class="icon-home" src="img/inventario.png" />          
+        <div class="home-box animate__animated animate__fadeIn" >
+          <h3 class="notselect" >Inventario</h3>
+          <img class="icon-home" src="img/inventario.png" />
+          <span router-link='inventario' class="material-icons notselect" style="font-size:60px;" >play_circle_filled</span>
         </div>
-        <div class="home-box" >
-          <h3>Stock</h3>
-          <img class="icon-home" src="img/stock.png" />          
+        <div class="home-box animate__animated animate__fadeIn" >
+          <h3 class="notselect">Stock</h3>
+          <img class="icon-home" src="img/stock.png" />
+          <span router-link='stock' class="material-icons notselect" style="font-size:60px;" >play_circle_filled</span>
         </div>
-        <div class="home-box" >
-          <h3>Pedido</h3>
-          <img class="icon-home" src="img/pedidos.png" />          
+        <div class="home-box animate__animated animate__fadeIn" >
+          <h3 class="notselect">Pedido</h3>
+          <img class="icon-home" src="img/pedidos.png" />
+          <span router-link='pedidos' class="material-icons notselect" style="font-size:60px;" >play_circle_filled</span>
         </div>
-        <div class="home-box" >
-          <h3>Ventas</h3>
-          <img class="icon-home" src="img/ventas.png" />          
+        <div class="home-box animate__animated animate__fadeIn" >
+          <h3 class="notselect">Ventas</h3>
+          <img class="icon-home" src="img/ventas.png" />
+          <span router-link='ventas' class="material-icons notselect" style="font-size:60px;" >play_circle_filled</span>
         </div>
-
-
-
     `;
 
     var html = `
@@ -146,6 +179,7 @@
         <div class="pharma-product" >
           <div style="padding-left:5px;padding-top:5px;" >
             <span click-open-menu  class="material-icons md-36" >menu</span>
+            <span click-go-home style="float:right;margin-right:5px;" class="material-icons md-36 notselect" >home</span>
           </div>
           <div id="name" class="title"></div>
         </div>
@@ -218,22 +252,47 @@
       {
       "/":{
           controller:function(){
+            rootHtml.innerHTML = '';
             rootHtml.classList.add('logo-load');
             setTimeout(function(){
               rootHtml.removeAttribute('class');
               rootHtml.classList.add('wrapper-section-home');
               rootHtml.innerHTML = home;
+
+              var links = document.querySelectorAll('span[router-link]');
+              for( var i = 0; i < links.length ; i++ ){
+                links[i].addEventListener('click',function( event ){
+                    console.log("Work ONwe");
+                    location.hash = '/'+event.target.getAttribute('router-link');
+                });
+              }
+
+
             },1000);
           }
       },
-      "/pedido":{
+      "/stock":{
         controller:function(){
+            rootHtml.innerHTML = '';
+            rootHtml.classList.add('logo-load');
+          setTimeout(function(){
+            rootHtml.removeAttribute('class');
+            rootHtml.classList.add('wrapper-section-stock');
+            rootHtml.innerHTML = stockHtml;
+            //rootHtml.querySelector('[click-open-menu]').addEventListener('click',function(){ drawer.open(); });
+          },1000);
+        }
+      },
+      "/pedidos":{
+        controller:function(){
+            rootHtml.innerHTML = '';
             rootHtml.classList.add('logo-load');
           setTimeout(function(){
             rootHtml.removeAttribute('class');
             rootHtml.classList.add('wrapper-section');
             rootHtml.innerHTML = html;
             rootHtml.querySelector('[click-open-menu]').addEventListener('click',function(){ drawer.open(); });
+            rootHtml.querySelector('[click-go-home]').addEventListener('click',function(){ location.hash = '/'; });
           },1000);
         }
       },
