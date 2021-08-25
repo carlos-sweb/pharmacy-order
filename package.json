@@ -22,6 +22,7 @@
     "numeral": "^2.0.6",
     "pp-drawer.js": "^1.0.6",
     "pp-events": "^1.2.1",
+    "pp-model.js": "^1.2.4",
     "pp-router.js": "^1.0.6",
     "voca": "^1.4.0"
   }
