@@ -19,7 +19,10 @@
   "dependencies": {
     "animate.css": "^4.1.1",
     "normalize.css": "^8.0.1",
+    "numeral": "^2.0.6",
     "pp-drawer.js": "^1.0.6",
-    "pp-router.js": "^1.0.6"
+    "pp-events": "^1.2.1",
+    "pp-router.js": "^1.0.6",
+    "voca": "^1.4.0"
   }
 }
